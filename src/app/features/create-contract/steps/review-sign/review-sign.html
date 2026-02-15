@@ -1,0 +1,28 @@
+<div class="review-container">
+
+  <h2 class="review-title">Review Agreement</h2>
+
+  <!-- Basic Info Card -->
+  <mat-card class="review-card">
+    <mat-card-title>Basic Information</mat-card-title>
+    <mat-card-content>
+      <p><strong>Title:</strong> {{ basicInfo?.title }}</p>
+      <p><strong>Client Name:</strong> {{ basicInfo?.clientName }}</p>
+      <p><strong>Email:</strong> {{ basicInfo?.clientEmail }}</p>
+      <p><strong>Type:</strong> {{ basicInfo?.contractType }}</p>
+      <p><strong>Start Date:</strong> {{ basicInfo?.startDate }}</p>
+      <p><strong>End Date:</strong> {{ basicInfo?.endDate }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Commercial Info Card -->
+  <mat-card class="review-card">
+    <mat-card-title>Commercial Information</mat-card-title>
+    <mat-card-content>
+      <p><strong>Value:</strong> {{ commercialInfo?.contractValue }} {{ commercialInfo?.currency }}</p>
+      <p><strong>Payment Terms:</strong> {{ commercialInfo?.paymentTerms }}</p>
+      <p><strong>Description:</strong> {{ commercialInfo?.description }}</p>
+    </mat-card-content>
+  </mat-card>
+
+</div>

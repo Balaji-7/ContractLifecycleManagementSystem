@@ -1,0 +1,94 @@
+<div class="wizard-container">
+
+  <!-- HEADER -->
+  <div class="wizard-header">
+    <h2>Create New Contract</h2>
+    <p>Fill details and send for signature</p>
+  </div>
+
+  <!-- STEP INDICATOR -->
+  <div class="stepper">
+    <div class="step" [class.active]="currentStep >= 1">
+      <span>1</span>
+      <p>Basic Info</p>
+    </div>
+
+    <div class="step" [class.active]="currentStep >= 2">
+      <span>2</span>
+      <p>Commercial Info</p>
+    </div>
+
+    <div class="step" [class.active]="currentStep >= 3">
+      <span>3</span>
+      <p>Review & Sign</p>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <form [formGroup]="contractForm">
+
+    <app-basic-info
+      *ngIf="currentStep === 1"
+      [group]="basicInfoGroup">
+    </app-basic-info>
+
+    <app-commercial-info
+      *ngIf="currentStep === 2"
+      [group]="commercialInfoGroup">
+    </app-commercial-info>
+
+    <app-review-sign
+      *ngIf="currentStep === 3"
+      [form]="contractForm">
+    </app-review-sign>
+
+  </form>
+
+<!-- FOOTER BUTTONS -->
+<div class="wizard-footer">
+
+  <!-- LEFT SIDE -->
+  <div class="left-actions">
+    <button type="button"
+            class="cancel-btn"
+            (click)="cancel()">
+      Cancel
+    </button>
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="right-actions">
+
+    <button *ngIf="currentStep > 1"
+            type="button"
+            class="secondary-btn"
+            (click)="prevStep()">
+      Back
+    </button>
+
+    <button type="button"
+            class="draft-btn"
+            (click)="saveDraft()">
+      Save as Draft
+    </button>
+
+    <button *ngIf="currentStep < 3"
+            type="button"
+            class="primary-btn"
+            (click)="nextStep()">
+      Next
+    </button>
+
+    <button *ngIf="currentStep === 3"
+            type="button"
+            class="primary-btn"
+            (click)="submitContract()">
+      Send for Signature
+    </button>
+
+  </div>
+
+</div>
+
+
+</div>

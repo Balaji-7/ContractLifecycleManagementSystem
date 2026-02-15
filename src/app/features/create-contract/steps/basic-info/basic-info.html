@@ -1,0 +1,76 @@
+<div class="step-container" [formGroup]="group">
+
+  <div class="form-grid">
+
+    <!-- Contract Title -->
+    <div class="form-group">
+      <label>Contract Title <span class="required">*</span></label>
+      <input type="text" formControlName="title" placeholder="Enter contract title" />
+      <small class="error"
+        *ngIf="group.get('title')?.touched && group.get('title')?.invalid">
+        Contract title is required
+      </small>
+    </div>
+
+    <!-- Client Name -->
+    <div class="form-group">
+      <label>Client Name <span class="required">*</span></label>
+      <input type="text" formControlName="clientName" placeholder="Enter client name" />
+      <small class="error"
+        *ngIf="group.get('clientName')?.touched && group.get('clientName')?.invalid">
+        Client name is required
+      </small>
+    </div>
+
+    <!-- Client Email -->
+    <div class="form-group">
+      <label>Client Email <span class="required">*</span></label>
+      <input type="email" formControlName="clientEmail" placeholder="Enter client email" />
+      <small class="error"
+        *ngIf="group.get('clientEmail')?.touched && group.get('clientEmail')?.invalid">
+        Valid email is required
+      </small>
+    </div>
+
+    <!-- Contract Type -->
+    <div class="form-group">
+      <label>Contract Type <span class="required">*</span></label>
+      <select formControlName="contractType">
+        <option value="">Select Type</option>
+        <option value="NDA">NDA</option>
+        <option value="Service Agreement">Service Agreement</option>
+        <option value="Consulting">Consulting</option>
+        <option value="Maintenance">Maintenance</option>
+      </select>
+      <small class="error"
+        *ngIf="group.get('contractType')?.touched && group.get('contractType')?.invalid">
+        Contract type is required
+      </small>
+    </div>
+
+    <!-- Start Date -->
+    <div class="form-group">
+      <label>Start Date <span class="required">*</span></label>
+      <input type="date" formControlName="startDate" />
+      <small class="error"
+        *ngIf="group.get('startDate')?.touched && group.get('startDate')?.invalid">
+        Start date is required
+      </small>
+    </div>
+
+    <!-- End Date -->
+    <div class="form-group">
+      <label>End Date <span class="required">*</span></label>
+      <input type="date" formControlName="endDate" [min]="group.get('startDate')?.value" />
+      <small class="error"
+        *ngIf="group.get('endDate')?.touched && group.get('endDate')?.invalid">
+        End date is required
+      </small>
+    <small class="error" *ngIf="group.errors?.['dateInvalid'] && group.get('endDate')?.touched">
+        End date must be after start date
+    </small>
+    </div>
+
+  </div>
+
+</div>

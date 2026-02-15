@@ -1,0 +1,52 @@
+<div [formGroup]="group" class="step-container">
+
+  <h3 class="step-title">Commercial Information</h3>
+
+  <!-- Contract Value -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Contract Value</mat-label>
+    <input matInput type="number" formControlName="contractValue" />
+    <mat-error *ngIf="group.get('contractValue')?.hasError('required')">
+      Contract value is required
+    </mat-error>
+    <mat-error *ngIf="group.get('contractValue')?.hasError('min')">
+      Value must be greater than 0
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Currency -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Currency</mat-label>
+    <mat-select formControlName="currency">
+      <mat-option *ngFor="let curr of currencies" [value]="curr">
+        {{ curr }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="group.get('currency')?.hasError('required')">
+      Currency is required
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Payment Terms -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Payment Terms</mat-label>
+    <mat-select formControlName="paymentTerms">
+      <mat-option *ngFor="let term of paymentTermsOptions" [value]="term">
+        {{ term }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="group.get('paymentTerms')?.hasError('required')">
+      Payment terms required
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Description -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Description</mat-label>
+    <textarea matInput rows="4" formControlName="description"></textarea>
+    <mat-hint align="end">
+      {{ group.get('description')?.value?.length || 0 }}/500
+    </mat-hint>
+  </mat-form-field>
+
+</div>

@@ -1,0 +1,136 @@
+<div class="dashboard-container">
+
+  <!-- HEADER -->
+  <div class="dashboard-header">
+    <div>
+      <h1>Contract Dashboard</h1>
+      <p>Manage and track all agreements</p>
+    </div>
+
+    <button class="create-btn" routerLink="/create">
+      + New Agreement
+    </button>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <h3>{{ total }}</h3>
+      <span>Total Agreements</span>
+    </div>
+
+    <div class="kpi-card draft-card">
+      <h3>{{ draft }}</h3>
+      <span>Draft</span>
+    </div>
+
+    <div class="kpi-card sent-card">
+      <h3>{{ sent }}</h3>
+      <span>Sent</span>
+    </div>
+
+    <div class="kpi-card signed-card">
+      <h3>{{ signed }}</h3>
+      <span>Signed</span>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <input
+      type="text"
+      placeholder="Search by title or client..."
+      [(ngModel)]="searchTerm"
+    />
+
+    <select [(ngModel)]="selectedStatus">
+      <option>All</option>
+      <option>Draft</option>
+      <option>Sent</option>
+      <option>Signed</option>
+    </select>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Client</th>
+          <th>Status</th>
+          <th>Value</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let agreement of paginatedAgreements">
+
+          <td>{{ agreement.id }}</td>
+
+          <td>{{ agreement.basicInfo?.title }}</td>
+
+          <td>{{ agreement.basicInfo?.clientName }}</td>
+
+          <td>
+            <span class="status-badge"
+                  [ngClass]="agreement.status?.toLowerCase()">
+              {{ agreement.status }}
+            </span>
+          </td>
+
+          <td>
+            {{ agreement.commercialInfo?.contractValue > 0 
+              ? (agreement.commercialInfo?.contractValue | currency:'INR') 
+              : '-' }}
+          </td>
+
+          <td class="actions">
+
+            <button class="action-btn view"
+                    (click)="viewAgreement(agreement.id)">
+              View
+            </button>
+
+            <button class="action-btn edit"
+                    *ngIf="agreement.status === 'Draft'"
+                    (click)="editAgreement(agreement)">
+              Edit
+            </button>
+
+            <button class="action-btn delete"
+                    *ngIf="agreement.status === 'Draft'"
+                    (click)="deleteAgreement(agreement)">
+              Delete
+            </button>
+
+          </td>
+
+        </tr>
+
+        <tr *ngIf="paginatedAgreements.length === 0">
+          <td colspan="6" style="text-align:center; padding:20px;">
+            No agreements found.
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PAGINATION -->
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="changePage(currentPage - 1)">
+      Previous
+    </button>
+
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+
+    <button (click)="changePage(currentPage + 1)">
+      Next
+    </button>
+  </div>
+
+</div>
